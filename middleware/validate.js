@@ -1,4 +1,5 @@
 const cars = require('../models/carModel');
+const sales = require('../models/salesModel');
 
 const validateCarId = () => {
 	return (req, res, next) => {
@@ -33,7 +34,42 @@ const validateCar = () => {
 	};
 };
 
+const validateSalesId = () => {
+	return (req, res, next) => {
+		sales
+			.getById(req.params.id)
+			.then((sale) => {
+				if (sale) {
+					req.sale = sale;
+					next();
+				} else {
+					res.status(404).json({ message: 'Sale Not Found.' });
+				}
+			})
+			.catch((err) => {
+				next(err);
+			});
+	};
+};
+
+const validateSale = () => {
+	return (req, res, next) => {
+		cars.getById(req.body.carId).then((car) => {
+			// console.log(car);
+			if (!req.body.sold || !req.body.price || !req.body.carId) {
+				res.status(400).json({ message: 'Missing Sale Data.' });
+			} else if (!car) {
+				res.status(404).json({ message: 'Valid Car Not Found!' });
+			} else {
+				next();
+			}
+		});
+	};
+};
+
 module.exports = {
 	validateCarId,
 	validateCar,
+	validateSalesId,
+	validateSale,
 };
