@@ -8,9 +8,9 @@ const getById = (id) => {
 	return db('sales').where({ id }).first();
 };
 
-const insert = (car) => {
+const insert = (sale) => {
 	return db('sales')
-		.insert(car)
+		.insert(sale)
 		.then((id) => getById(id));
 };
 

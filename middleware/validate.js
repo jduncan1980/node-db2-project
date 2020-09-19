@@ -55,9 +55,10 @@ const validateSalesId = () => {
 const validateSale = () => {
 	return (req, res, next) => {
 		cars.getById(req.body.carId).then((car) => {
-			// console.log(car);
-			if (!req.body.sold || !req.body.price || !req.body.carId) {
-				res.status(400).json({ message: 'Missing Sale Data.' });
+			console.log(car);
+			console.log(req.body);
+			if (req.body.sold === undefined || !req.body.price || !req.body.carId) {
+				res.status(400).json({ message: 'Missing Sale Data!' });
 			} else if (!car) {
 				res.status(404).json({ message: 'Valid Car Not Found!' });
 			} else {
