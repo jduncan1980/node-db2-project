@@ -9,7 +9,6 @@ exports.seed = function (knex) {
 				{ sold: true, price: 12999.99, carId: 2 },
 				{ sold: false, price: 15999.99, carId: 3 },
 				{ sold: false, price: 11999.99, carId: 4 },
-				{ sold: false, price: 11999.99, carId: 5 },
 			]);
 		});
 };
